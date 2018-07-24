@@ -1,5 +1,6 @@
 %p#notice= notice
 %h1 Job Postings
+= will_paginate @job_postings
 %table.table.table-hover.table-striped
   %thead
     %tr
@@ -14,9 +15,10 @@
         %td= job_posting.title
         %td= job_posting.url
         %td= truncate job_posting.content
-        %td= job_posting.department
+        %td= job_posting.department.name
         %td= link_to 'Show', job_posting
         %td= link_to 'Edit', edit_job_posting_path(job_posting)
         %td= link_to 'Destroy', job_posting, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
+= will_paginate @job_postings
 = link_to 'New Job Posting', new_job_posting_path
