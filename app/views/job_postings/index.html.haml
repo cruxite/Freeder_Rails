@@ -4,16 +4,14 @@
 %table.table.table-hover.table-striped
   %thead
     %tr
-      %th Title
-      %th Url
+      %th=sort "title"
       %th Content
-      %th Department
+      %th=sort "department"
       %th{:colspan => "3"}
   %tbody
     - @job_postings.each do |job_posting|
       %tr
-        %td= job_posting.title
-        %td= job_posting.url
+        %td= link_to job_posting.title, job_posting.url
         %td= truncate job_posting.content
         %td= job_posting.department.name
         %td= link_to 'Show', job_posting

@@ -1,10 +1,15 @@
 class JobPostingsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_job_posting, only: [:show, :edit, :update, :destroy]
 
   # GET /job_postings
   # GET /job_postings.json
   def index
-    @job_postings = JobPosting.all.paginate(page: params[:page], per_page: 15)
+    if params[:sort] == "department"
+      @job_postings = JobPosting.joins(:department).merge(Department.order("name " + sort_direction)).paginate(page: params[:page], per_page: 15)
+    else
+      @job_postings = JobPosting.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 15)
+    end
   end
 
   # GET /job_postings/1
@@ -70,5 +75,13 @@ class JobPostingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_posting_params
       params.require(:job_posting).permit(:title, :url, :content, :entry_id, :job_published_at, :job_updated_at, :department_id)
+    end
+
+    def sort_column
+      JobPosting.column_names.include?(params[:sort]) ? params[:sort] : "title"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
