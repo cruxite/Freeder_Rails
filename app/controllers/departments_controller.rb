@@ -10,6 +10,8 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
+    @department = Department.find(params[:id])
+    @job_postings = @department.job_postings
   end
 
   # GET /departments/new
