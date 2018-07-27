@@ -12,9 +12,9 @@
     - @job_postings.each do |job_posting|
       %tr
         %td= link_to job_posting.title, job_posting.url
-        %td= truncate(job_posting.content, length: 300)
+        %td= truncate(strip_tags(job_posting.content), length: 300)
         %td= link_to 'Show', job_posting
 %br/
-= link_to 'Edit Department', edit_department_path(@department)
+= link_to 'Edit', edit_department_path(@department)
 %br/
 %strong= link_to 'Back', departments_path

@@ -12,7 +12,7 @@
     - @job_postings.each do |job_posting|
       %tr
         %td= link_to job_posting.title, job_posting.url
-        %td= truncate job_posting.content
+        %td= truncate strip_tags job_posting.content
         %td= job_posting.department.name
         %td= link_to 'Show', job_posting
         %td= link_to 'Edit', edit_job_posting_path(job_posting)
