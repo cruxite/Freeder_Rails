@@ -1,13 +1,13 @@
 %p#notice= notice
 %p
   %strong Title:
-  = @job_posting.title
+  = link_to @job_posting.title, @job_posting.url
 %p
   %strong Url:
   = @job_posting.url
 %p
   %strong Content:
-  = @job_posting.content
+  = strip_tags @job_posting.content
 %p
   %strong Entry:
   = @job_posting.entry_id
@@ -19,7 +19,7 @@
   = @job_posting.job_updated_at
 %p
   %strong Department:
-  = @job_posting.department
+  = link_to @job_posting.department.name, department_path(@job_posting.department)
 = link_to 'Edit', edit_job_posting_path(@job_posting)
 |
 = link_to 'Back', job_postings_path
